@@ -28,8 +28,8 @@ url: "https://kiz01.github.io"
 github:
   username: kiz01 # change to your GitHub username
 
-linkedin:
-  username: kiz01 # change to your Linkedin username
+#linkedin:
+ # username: kiz01 # change to your Linkedin username
 
 social:
   # Change to your full name.
@@ -38,11 +38,11 @@ social:
   email: kiz.bhushan01@gmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://linkedin.com/in/kiz01 # change to your Linkedin homepage
+    #  - https://linkedin.com/in/kiz01 # change to your Linkedin homepage
     - https://github.com/kiz01 # change to your GitHub homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://www.linkedin.com/in/kiz01
 
 # Site Verification Settings
 webmaster_verifications:
