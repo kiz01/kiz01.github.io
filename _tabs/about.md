@@ -66,8 +66,8 @@ This site is where I publish:
 
 ## Connect
 
-- **GitHub:** https://github.com/kiz01
-- **LinkedIn:** https://linkedin.com/in/kiz01
+- **GitHub:**[kiz01](https://github.com/kiz01)
+- **LinkedIn:** [Kshitiz Bhushan](https://linkedin.com/in/kiz01)
 
 Feel free to reach out if you're working on similar things or want to discuss defensive security, cloud, or malware analysis.
 
