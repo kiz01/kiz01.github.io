@@ -28,8 +28,8 @@ url: "https://kiz01.github.io"
 github:
   username: kiz01 # change to your GitHub username
 
-#linkedin:
- # username: kiz01 # change to your Linkedin username
+linkedin:
+  username: kiz01 # change to your Linkedin username
 
 social:
   # Change to your full name.
