@@ -37,9 +37,9 @@ social:
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: Kshitiz Bhushan
   email: kiz.bhushan01@gmail.com # change to your email address
- # links:
+  links:
     # The first element serves as the copyright owner's link
-    # - https://github.com/kiz01 # change to your GitHub homepage
+      - https://github.com/kiz01 # change to your GitHub homepage
     # - https://linkedin.com/in/kiz01 # Linkedin profile
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
