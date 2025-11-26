@@ -1,7 +1,7 @@
 #  The contact options.
  - type: linkedin
    icon: 'fab fa-linkedin'             # icons powered by <https://fontawesome.com/>
-   url:  'www.linkedin.com/in/kiz01'   # Fill with your Linkedin homepage
+   url:  'https://linkedin.com/in/kiz01'   # Fill with your Linkedin homepage
 
 - type: github
   icon: "fab fa-github"
