@@ -38,7 +38,7 @@ This Screenshot contains 87 failed assessment from the list I’ll focus on the 
 - Ensure File Deletion Events are Collected
 - Ensure Access to su Command is Restricted
 
-## USB Storage Devices Disabled
+# USB Storage Devices Disabled
 
 **Wazuh Finding**
 
@@ -57,7 +57,7 @@ Wazuh flagged this control because the system allowed USB storage devices to loa
 
 We have **two valid approaches** depending on the environment. Both are considered good practice.
 
-### **Option 1: Block USB Storage (Simple + Strong for Servers)**
+#### **Option 1: Block USB Storage (Simple + Strong for Servers)**
 
 Best for environments where USB usage is **not required at all** (datacenters, production servers).
 
@@ -71,7 +71,7 @@ This completely prevents the OS from loading USB storage support.
 
 It’s simple and effective.
 
-### **Option 2: Use USBGuard (Controlled USB Access)**
+#### **Option 2: Use USBGuard (Controlled USB Access)**
 
 Best for **enterprise desktops or workstations** where USB devices *may* be required for legitimate use, but you need strict control.
 
@@ -109,11 +109,11 @@ USBGuard method:
 `sudo usbguard list-devices
 sudo systemctl status usbguard`
 
-### **SOC Note**
+**SOC Note**
 
 USB misuse is a real-world threat vector. Whether you block devices entirely or control them using USBGuard, the goal is the same: limit physical attack surfaces and prevent unauthorized data movement.
 
-## Telnet Client Not Installed
+# Telnet Client Not Installed
 
 Telnet is **an old network protocol that enables remote login and command-line access to a remote computer over a TCP/IP network**.
 
@@ -162,7 +162,7 @@ APT check:
 
 `apt list --installed | grep telnet` Expected: *empty*
 
-### **Telnet Status on Pop!_OS**
+#### **Telnet Status on Pop!_OS**
 
 During the hardening process, Telnet was identified on the system. However, further verification showed that it exists **only as a client package** and is required by the Pop!_OS system component `pop-container-interactive`.
 
@@ -179,11 +179,11 @@ Because Telnet is not running and does not expose any network surface, keeping t
 
 ![Telnet_kept.png](/assets/img/wazuh/Telnet_kept.png)
 
-### **SOC Note**
+**SOC Note**
 
 Validating legacy, insecure protocols ensures they are not running and not exposing any services on the endpoint. Confirming that Telnet exists only as a passive dependency and not as an active service helps maintain secure access policies while avoiding unnecessary system disruption.
 
-## Wireless Interfaces are Disabled
+# Wireless Interfaces are Disabled
 
 **Wazuh Finding**
 
@@ -198,11 +198,11 @@ Wazuh flagged this control because the system still had an active or available w
 - Leaving wireless enabled increases the attack surface and bypasses network perimeter controls.
 - It also prevents accidental auto-connect to unsecured networks.
 
-### **How to Fix**
+**How to Fix**
 
 We can disable wireless in **two ways** depending on environment needs.
 
-### **Option 1: Disable Wireless via NetworkManager (simple & effective)**
+#### **Option 1: Disable Wireless via NetworkManager (simple & effective)**
 
 Use this when the system uses NetworkManager (most modern distros):
 
@@ -214,7 +214,7 @@ Prevent NetworkManager from re-enabling Wi-Fi:
 
 This ensures Wi-Fi is off and stays off.
 
-### **Option 2: Disable Wireless Kernel Modules (stronger hardening)**
+#### **Option 2: Disable Wireless Kernel Modules (stronger hardening)**
 
 Block the wireless drivers at module level.
 
@@ -237,11 +237,11 @@ sudo reboot`
 
 This completely disables Wi-Fi support on the system.
 
-### **SOC Note**
+**SOC Note**
 
 Disabling wireless networking reduces lateral entry points and prevents endpoints from connecting to untrusted networks. For servers, it removes an entire class of unnecessary exposure and aligns with CIS Level 1 benchmarks.
 
-## Auditd is Installed and Enabled
+# Auditd is Installed and Enabled
 
 `auditd`, or the Linux Audit Daemon, is a background service in Linux that monitors and logs security-relevant system events, such as file access, system calls, and user actions, based on rules defined by the system administrator. It is a core component of the Linux Auditing System that helps with security monitoring, forensic analysis, and compliance by providing a detailed audit trail of system activities. 
 
@@ -258,7 +258,7 @@ Wazuh flagged this control because the system didn’t have **auditd** installed
 
 This is a foundational control for endpoint security.
 
-### **How to Fix**
+**How to Fix**
 
 Install auditd and related plugins:
 
@@ -275,7 +275,7 @@ Check the status:
 Auditd runs at kernel level, so no additional configuration is required just to satisfy this CIS control.
 (Additional audit rules will be added for other sections, such as login events, file deletions, sudo scope, etc.)
 
-### **Local Verification**
+**Local Verification**
 
 Check if the daemon is active:
 
@@ -289,17 +289,17 @@ Check if service is enabled at boot:
 
 `systemctl is-enabled auditd` Expected: `enabled`
 
-### **Wazuh Validation**
+**Wazuh Validation**
 
 ![Auditd_installed.png](/assets/img/wazuh/Auditd_installed.png)
 
 Once auditd is installed and running, Wazuh detects it on the next scan cycle and marks the control as **Passed**.
 
-### SOC Note
+**SOC Note**
 
 Without auditd, we lose the forensic trail for privileged commands, configuration changes, and authentication activity. Ensuring auditd is installed and active is one of the first steps in building a defensible Linux system.
 
-## Login and Logout Events Are Collected
+# Login and Logout Events Are Collected
 
 **Wazuh Finding**
 
@@ -314,7 +314,7 @@ Wazuh flagged this because my system wasn’t auditing login-related files like 
 - Many SOC use-cases depend on login visibility, such as anomaly detection or privilege monitoring.
 - CIS benchmarks explicitly require these audit rules to ensure accountability.
 
-### **How to Fix**
+**How to Fix**
 
 Added the recommended audit rules to monitor login-related files.
 
@@ -334,7 +334,7 @@ Then load the rules:
 
 This ensures login activity is tracked consistently across reboots.
 
-### **Local Verification**
+**Local Verification**
 
 1. Confirm that the login audit rules are loaded
     
@@ -373,7 +373,7 @@ This ensures login activity is tracked consistently across reboots.
         audit entries referencing login files or session changes
         
 
-### **Troubleshooting auditd on Pop!_OS / Ubuntu (Quick Notes)**
+**Troubleshooting auditd on Pop!_OS / Ubuntu (Quick Notes)**
 
 Pop!_OS and Ubuntu-based systems sometimes ship with leftover audit configuration files that interfere with augenrules. If audit rules aren’t loading correctly or `augenrules --load` keeps returning **“No rules”**, these are the common causes and fixes.
 
@@ -437,13 +437,13 @@ Pop!_OS and Ubuntu-based systems sometimes ship with leftover audit configuratio
 
 A misconfigured audit subsystem gives a false sense of compliance. Ensuring augenrules is generating and loading the correct rules is the foundation for every CIS audit section, including login tracking, file deletion monitoring, sudo auditing, and su access restrictions.
 
-### Wazuh Validation
+**Wazuh Validation**
 
 ![login&logout_working.png](/assets/img/wazuh/login&logout_working.png)
 
 After the next assessment scan, Wazuh marked the control as **Passed**, confirming that Login and Logout Events Are Collected.
 
-### SOC Notes
+**SOC Notes**
 
 From an analyst perspective, the goal is to make sure every authentication event is visible and traceable. With the correct audit rules in place, we can:
 
@@ -455,7 +455,7 @@ From an analyst perspective, the goal is to make sure every authentication event
 
 If older or duplicate audit rules existed, removing them ensures cleaner logs and avoids event suppression or duplicate entries. The current configuration now provides a stable baseline for monitoring user authentication events across the system.
 
-## File Deletion Events Are Collected
+# File Deletion Events Are Collected
 
 **Wazuh Finding**
 
@@ -463,14 +463,14 @@ If older or duplicate audit rules existed, removing them ensures cleaner logs an
 
 Wazuh flagged this control because my system wasn’t auditing file deletion or rename operations by normal users. CIS requires tracking these events since attackers often delete or rename files to hide activity or clear traces. The agent didn’t detect any syscall rules for `unlink`, `unlinkat`, `rename`, or `renameat`.
 
-### **Why It Matters**
+**Why It Matters**
 
 - File deletions and renames are common during compromise, persistence cleanup, and data destruction.
 - These events help build timelines during investigations.
 - Without syscall auditing, there's no visibility into tampering or suspicious file activity by users.
 - This is a critical control for forensic coverage.
 
-### How to Fix
+**How to Fix**
 
 We can add syscall audit rules to track deletion and rename operations performed by regular users (UID ≥ 1000):
 
@@ -492,7 +492,7 @@ Then we can load the rules:
 
 (If auditd required it earlier, we can also run `sudo auditctl -R /etc/audit/audit.rules` to force a reload.)
 
-### **Local Verification (File Deletion Events)**
+**Local Verification (File Deletion Events)**
 
 1. Confirm the deletion syscall rules are loaded
     
@@ -527,17 +527,17 @@ Then we can load the rules:
     ![Auditd_running.png](/assets/img/wazuh/Auditd_running.png)
     
 
-### **Wazuh Validation**
+**Wazuh Validation**
 
 ![file_deletion_working.png](/assets/img/wazuh/file_deletion_working.png)
 
 After the next assessment scan, Wazuh marked the control as **Passed**, confirming that deletion events are being collected properly by auditd.
 
-### **SOC Note**
+**SOC Note**
 
 This rule provides visibility whenever a user tries to destroy evidence or modify files during malicious activity. It’s a high-value audit rule for incident response and forensic reconstruction.
 
-## Access to the `su` Command Is Restricted
+# Access to the `su` Command Is Restricted
 
 **Wazuh Finding**
 
@@ -545,14 +545,14 @@ This rule provides visibility whenever a user tries to destroy evidence or modif
 
 Wazuh flagged this control because my system allowed any local user to run the `su` command. CIS requires restricting `su` so only approved administrative users can use it. Without this restriction, someone with local access could try to brute-force the root password or escalate privileges.
 
-### **Why It Matters**
+**Why It Matters**
 
 - `su` gives direct access to the root account or another user.
 - If anyone can run `su`, it opens the door for privilege escalation attempts.
 - Restricting `su` reduces the attack surface and ensures only authorized admins can elevate privileges.
 - CIS specifically requires limiting `su` to a dedicated group (e.g., *sudo*, *wheel*, or a custom group).
 
-### How to Fix
+**How to Fix**
 
 Instead of allowing any user to run `su`, we can restrict it to a controlled admin group.
 
@@ -581,7 +581,7 @@ Instead of allowing any user to run `su`, we can restrict it to a controlled adm
     This enforces that only members of `sugroup` can use `su`.
     
 
-### **Local Verification (su Access Restriction)**
+**Local Verification (su Access Restriction)**
 
 1. Confirm the user is in the sugroup
     
@@ -622,13 +622,13 @@ Instead of allowing any user to run `su`, we can restrict it to a controlled adm
     The PAM configuration line confirming restriction.
     
 
-### **Wazuh Validation**
+**Wazuh Validation**
 
 ![Su_restricted.png](/assets/img/wazuh/Su_restricted.png)
 
 Once the restriction was applied, Wazuh detected the correct PAM configuration and marked the control as **Passed**.
 
-### **SOC Note**
+**SOC Note**
 
 Restricting `su` ensures that only vetted admins can attempt privilege escalation. This blocks low-quality brute-force attempts and helps maintain a clear separation between standard and privileged user roles - one of the core principles in least-privilege environments.
 
@@ -645,3 +645,4 @@ Restricting `su` ensures that only vetted admins can attempt privilege escalatio
 | **Access to `su` Restricted** | Prevents unauthorized privilege escalation attempts. | Created `sugroup`, updated PAM (`pam_wheel`) to restrict `su`. | ✔️ Passed |
 
 That covers the key checks. These configurations ensure proper monitoring, remove legacy conflicts, and keep the system aligned with audit requirements.
+
