@@ -26,8 +26,8 @@ description: >- # used by seo meta and the atom feed
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
 url: "https://kiz01.github.io"
 
-github:
-  username: kiz01 # change to your GitHub username
+#github:
+#  username: kiz01 # change to your GitHub username
 
 #twitter:
 #  username:       # change to your twitter username
@@ -39,7 +39,7 @@ social:
   email: kiz.bhushan01@gmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://github.com/kiz01 # change to your GitHub homepage
+    # - https://github.com/kiz01 # change to your GitHub homepage
     # - https://linkedin.com/in/kiz01 # Linkedin profile
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
