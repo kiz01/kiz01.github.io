@@ -124,11 +124,11 @@ The screenshots below show:
 - successful agent registration
 - active event collection from the monitored endpoint
 
-![***Figure 1:** Wazuh dashboard displaying active agent status*](/assets/img/wazuh/01_dashboard.png)
+![***Figure 1:** Wazuh dashboard displaying active agent status*](/assets/img/posts/wazuh-fim-linux/01_dashboard.png)
 
 ***Figure 1:** Wazuh dashboard displaying active agent status*
 
-![***Figure 2:** File Integrity Monitoring module showing distribution and timeline of file change events (added, modified, deleted)*](/assets/img/wazuh/02_agent_status.png)
+![***Figure 2:** File Integrity Monitoring module showing distribution and timeline of file change events (added, modified, deleted)*](/assets/img/posts/wazuh-fim-linux/02_agent_status.png)
 
 ***Figure 2:** File Integrity Monitoring module showing distribution and timeline of file change events (added, modified, deleted)*
 
@@ -254,7 +254,7 @@ File modified
 /home/user/.ssh/authorized_keys
 ```
 
-![***Figure 3:** Injected SSH key in `authorized_keys` establishing persistent remote access*](/assets/img/wazuh/04_ssh_persistence.png)
+![***Figure 3:** Injected SSH key in `authorized_keys` establishing persistent remote access*](/assets/img/posts/wazuh-fim-linux/04_ssh_persistence.png)
 
 ***Figure 3:** Injected SSH key in `authorized_keys` establishing persistent remote access*
 
@@ -300,7 +300,7 @@ The modification affected a critical system configuration file:
 
 This file directly governs privilege boundaries within the system.
 
-![***Figure 4:** Modification of `/etc/sudoers` granting elevated privileges to a user*](/assets/img/wazuh/05_privilidge_esclation.png)
+![***Figure 4:** Modification of `/etc/sudoers` granting elevated privileges to a user*](/assets/img/posts/wazuh-fim-linux/05_privilidge_esclation.png)
 
 ***Figure 4:** Modification of `/etc/sudoers` granting elevated privileges to a user*
 
@@ -355,11 +355,11 @@ The creation of a new user results in modifications to multiple authentication-r
 
 These files together define user identities and associated authentication data.
 
-![*Figure 5: Entry added to `/etc/passwd` for new user*](/assets/img/wazuh/06_backdoor_user.png)
+![*Figure 5: Entry added to `/etc/passwd` for new user*](/assets/img/posts/wazuh-fim-linux/06_backdoor_user.png)
 
 *Figure 5: Entry added to `/etc/passwd` for new user*
 
-![*Figure 6: Corresponding entry created in `/etc/shadow`*](/assets/img/wazuh/06_backdoor_user2.png)
+![*Figure 6: Corresponding entry created in `/etc/shadow`*](/assets/img/posts/wazuh-fim-linux/06_backdoor_user2.png)
 
 *Figure 6: Corresponding entry created in `/etc/shadow`*
 
@@ -416,7 +416,7 @@ The attack resulted in the creation of a new scheduled task file:
 
 This file defines a recurring execution rule within the system scheduler.
 
-![*Figure 7: Malicious cron job added under `/etc/cron.d`*](/assets/img/wazuh/07_cron_persistence.png)
+![*Figure 7: Malicious cron job added under `/etc/cron.d`*](/assets/img/posts/wazuh-fim-linux/07_cron_persistence.png)
 
 *Figure 7: Malicious cron job added under `/etc/cron.d`*
 
@@ -470,11 +470,11 @@ The action resulted in the creation of a new file in a system binary path:
 
 This location is typically reserved for trusted executables managed by the operating system.
 
-![*Figure 8: New binary created in `/usr/bin`*](/assets/img/wazuh/08_binary_tampering.png)
+![*Figure 8: New binary created in `/usr/bin`*](/assets/img/posts/wazuh-fim-linux/08_binary_tampering.png)
 
 *Figure 8: New binary created in `/usr/bin`*
 
-![*Figure 9: File presence confirmed in system path*](/assets/img/wazuh/08_binary_tampering2.png)
+![*Figure 9: File presence confirmed in system path*](/assets/img/posts/wazuh-fim-linux/08_binary_tampering2.png)
 
 *Figure 9: File presence confirmed in system path*
 
@@ -527,7 +527,7 @@ The modification affected a user-level initialization file:
 
 This file is executed each time a shell session is initiated.
 
-![*Figure 10: Malicious command added to `.bashrc` for execution on shell startup*](/assets/img/wazuh/09_bashrc_persistence.png)
+![*Figure 10: Malicious command added to `.bashrc` for execution on shell startup*](/assets/img/posts/wazuh-fim-linux/09_bashrc_persistence.png)
 
 *Figure 10: Malicious command added to `.bashrc` for execution on shell startup*
 
@@ -562,7 +562,7 @@ These events reflect how different post-exploitation techniques manifest as obse
 
 **Observed Event Timeline**
 
-![*Figure 11: Timeline of file integrity events generated during attack simulations*](/assets/img/wazuh/10_detection_summary.png)
+![*Figure 11: Timeline of file integrity events generated during attack simulations*](/assets/img/posts/wazuh-fim-linux/10_detection_summary.png)
 
 *Figure 11: Timeline of file integrity events generated during attack simulations*
 
