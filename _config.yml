@@ -19,7 +19,7 @@ title: Kcyber # the main title
 tagline: Cloud Engineer • Threat Detection • Linux Security • Malware Analysis # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-   Practical cybersecurity lab notes and detection engineering write-ups.
+  Practical cybersecurity lab notes and detection engineering write-ups.
   Focused on Wazuh, Linux security, malware analysis, and cloud security.
   Real-world configurations, attack simulations, and defensive insights.
   
