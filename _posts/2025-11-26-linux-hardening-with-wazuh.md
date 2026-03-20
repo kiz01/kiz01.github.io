@@ -42,7 +42,7 @@ This Screenshot contains 87 failed assessment from the list I’ll focus on the 
 
 **Wazuh Finding**
 
-![Disable_USB_storage.png](/assets/img/posts/linux-ca/Disable_USB_storage.png)
+![Disable_USB_storage.png](/assets/img/posts/linux-ca/Disabe_usb_storage.png)
 
 Wazuh flagged this control because the system allowed USB storage devices to load via the `usb-storage` kernel module. Under CIS benchmarks, removable storage must be disabled unless it’s explicitly required for business operations. The agent detected that USB storage access was still possible.
 
@@ -439,7 +439,7 @@ A misconfigured audit subsystem gives a false sense of compliance. Ensuring auge
 
 **Wazuh Validation**
 
-![login&logout_working.png](/assets/img/posts/linux-ca/login&logout_working.png)
+![login&logout_working.png](/assets/img/posts/linux-ca/login_logout_working.png)
 
 After the next assessment scan, Wazuh marked the control as **Passed**, confirming that Login and Logout Events Are Collected.
 
