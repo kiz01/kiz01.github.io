@@ -1,3 +1,11 @@
+---
+title: "Hardening Linux with Wazuh: A Practical Walkthrough of Configuration Assessment"   
+date: 2025-11-26  
+categories: [wazuh]  
+tags: [wazuh, configuration assessment, popos, linux, vulnerability]  
+excerpt: "Comprehensive Linux configuration assessment using Wazuh, with actionable hardening steps, auditd rules, and security validation."  
+---
+
 # Detecting Linux Persistence via File Integrity Monitoring (Wazuh Lab)
 
 A hands-on lab demonstrating how Wazuh detects unauthorized changes to critical Linux system and user files.
@@ -118,7 +126,7 @@ The screenshots below show:
 - successful agent registration
 - active event collection from the monitored endpoint
 
-![***Figure 1:** Wazuh dashboard displaying active agent status*](Detecting%20Linux%20Persistence%20via%20File%20Integrity%20Mon/01_dashboard.png)
+![***Figure 1:** Wazuh dashboard displaying active agent status*](/assets/img/wazuh/01_dashboard.png)
 
 ***Figure 1:** Wazuh dashboard displaying active agent status*
 
