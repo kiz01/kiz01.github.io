@@ -1,5 +1,5 @@
 ---
-title: "Detecting Linux Persistence via File Integrity Monitoring (Wazuh Lab)"   
+title: "Detecting Linux Persistence with Wazuh FIM"   
 date: 2026-03-20
 categories: [security, linux, detection]
 tags: [wazuh, fim, linux, persistence, detection]
