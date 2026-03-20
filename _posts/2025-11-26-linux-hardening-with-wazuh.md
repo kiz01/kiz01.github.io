@@ -26,7 +26,7 @@ The goal is to show how Wazuh supports day-to-day hardening work with clear chec
 
 ### **Overall Assessment Status**
 
-![CA_Dashboard.png](/assets/img/wazuh/CA_Dashboard.png)
+![CA_Dashboard.png](/assets/img/posts/linux-ca/CA_Dashboard.png)
 
 This Screenshot contains 87 failed assessment from the list I’ll focus on the few:
 
@@ -42,7 +42,7 @@ This Screenshot contains 87 failed assessment from the list I’ll focus on the 
 
 **Wazuh Finding**
 
-![Disable_USB_storage.png](/assets/img/wazuh/Disable_USB_storage.png)
+![Disable_USB_storage.png](/assets/img/posts/linux-ca/Disable_USB_storage.png)
 
 Wazuh flagged this control because the system allowed USB storage devices to load via the `usb-storage` kernel module. Under CIS benchmarks, removable storage must be disabled unless it’s explicitly required for business operations. The agent detected that USB storage access was still possible.
 
@@ -119,7 +119,7 @@ Telnet is **an old network protocol that enables remote login and command-line 
 
 **Wazuh Finding**
 
-![Telnet.png](/assets/img/wazuh/Telnet.png)
+![Telnet.png](/assets/img/posts/linux-ca/Telnet.png)
 
 Wazuh flagged this control because the system still had the **Telnet client** installed. CIS benchmarks require removing Telnet entirely since it sends all traffic including credentials in plain text. The agent detected the presence of the `telnet` package.
 
@@ -177,7 +177,7 @@ Importantly:
 
 Because Telnet is not running and does not expose any network surface, keeping the package does **not create a security risk**. For this reason, Telnet was **left installed** to maintain system stability, while confirming through command-line checks that it is inactive and not providing any service.
 
-![Telnet_kept.png](/assets/img/wazuh/Telnet_kept.png)
+![Telnet_kept.png](/assets/img/posts/linux-ca/Telnet_kept.png)
 
 **SOC Note**
 
@@ -187,7 +187,7 @@ Validating legacy, insecure protocols ensures they are not running and not expos
 
 **Wazuh Finding**
 
-![Wireless.png](/assets/img/wazuh/Wireless.png)
+![Wireless.png](/assets/img/posts/linux-ca/Wireless.png)
 
 Wazuh flagged this control because the system still had an active or available wireless interface (e.g., `wlan0`, `wlp3s0`). CIS benchmarks require wireless networking to be disabled on systems where it is not needed especially servers since it introduces unnecessary radio-based attack surfaces.
 
@@ -245,7 +245,7 @@ Disabling wireless networking reduces lateral entry points and prevents endpoint
 
 `auditd`, or the Linux Audit Daemon, is a background service in Linux that monitors and logs security-relevant system events, such as file access, system calls, and user actions, based on rules defined by the system administrator. It is a core component of the Linux Auditing System that helps with security monitoring, forensic analysis, and compliance by providing a detailed audit trail of system activities. 
 
-![Auditd.png](/assets/img/wazuh/Auditd.png)
+![Auditd.png](/assets/img/posts/linux-ca/Auditd.png)
 
 Wazuh flagged this control because the system didn’t have **auditd** installed or the audit daemon wasn’t enabled. CIS benchmarks require the Linux Audit Framework to be active, since it acts as the primary source for security-relevant logs on Linux.
 
@@ -291,7 +291,7 @@ Check if service is enabled at boot:
 
 **Wazuh Validation**
 
-![Auditd_installed.png](/assets/img/wazuh/Auditd_installed.png)
+![Auditd_installed.png](/assets/img/posts/linux-ca/Auditd_installed.png)
 
 Once auditd is installed and running, Wazuh detects it on the next scan cycle and marks the control as **Passed**.
 
@@ -303,7 +303,7 @@ Without auditd, we lose the forensic trail for privileged commands, configuratio
 
 **Wazuh Finding**
 
-![Login_logout.png](/assets/img/wazuh/Login_logout.png)
+![Login_logout.png](/assets/img/posts/linux-ca/Login_logout.png)
 
 Wazuh flagged this because my system wasn’t auditing login-related files like `lastlog` and `faillog`. CIS requires logging login, logout, and session changes so analysts can track authentication behavior and detect suspicious access patterns. The agent reported that the required audit rules weren’t present.
 
@@ -439,7 +439,7 @@ A misconfigured audit subsystem gives a false sense of compliance. Ensuring auge
 
 **Wazuh Validation**
 
-![login&logout_working.png](/assets/img/wazuh/login&logout_working.png)
+![login&logout_working.png](/assets/img/posts/linux-ca/login&logout_working.png)
 
 After the next assessment scan, Wazuh marked the control as **Passed**, confirming that Login and Logout Events Are Collected.
 
@@ -459,7 +459,7 @@ If older or duplicate audit rules existed, removing them ensures cleaner logs an
 
 **Wazuh Finding**
 
-![Deletion.png](/assets/img/wazuh/Deletion.png)
+![Deletion.png](/assets/img/posts/linux-ca/Deletion.png)
 
 Wazuh flagged this control because my system wasn’t auditing file deletion or rename operations by normal users. CIS requires tracking these events since attackers often delete or rename files to hide activity or clear traces. The agent didn’t detect any syscall rules for `unlink`, `unlinkat`, `rename`, or `renameat`.
 
@@ -518,18 +518,18 @@ Then we can load the rules:
     
     Entries showing the unlink syscall, UID, and the path.
     
-    ![ausearch_result.png](/assets/img/wazuh/ausearch_result.png)
+    ![ausearch_result.png](/assets/img/posts/linux-ca/ausearch_result.png)
     
 3. Confirm auditd is active
     
     `systemctl status auditd --no-pager`
     
-    ![Auditd_running.png](/assets/img/wazuh/Auditd_running.png)
+    ![Auditd_running.png](/assets/img/posts/linux-ca/Auditd_running.png)
     
 
 **Wazuh Validation**
 
-![file_deletion_working.png](/assets/img/wazuh/file_deletion_working.png)
+![file_deletion_working.png](/assets/img/posts/linux-ca/file_deletion_working.png)
 
 After the next assessment scan, Wazuh marked the control as **Passed**, confirming that deletion events are being collected properly by auditd.
 
@@ -541,7 +541,7 @@ This rule provides visibility whenever a user tries to destroy evidence or modif
 
 **Wazuh Finding**
 
-![su_command.png](/assets/img/wazuh/su_command.png)
+![su_command.png](/assets/img/posts/linux-ca/su_command.png)
 
 Wazuh flagged this control because my system allowed any local user to run the `su` command. CIS requires restricting `su` so only approved administrative users can use it. Without this restriction, someone with local access could try to brute-force the root password or escalate privileges.
 
@@ -624,7 +624,7 @@ Instead of allowing any user to run `su`, we can restrict it to a controlled adm
 
 **Wazuh Validation**
 
-![Su_restricted.png](/assets/img/wazuh/Su_restricted.png)
+![Su_restricted.png](/assets/img/posts/linux-ca/Su_restricted.png)
 
 Once the restriction was applied, Wazuh detected the correct PAM configuration and marked the control as **Passed**.
 
