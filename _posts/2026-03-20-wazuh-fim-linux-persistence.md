@@ -1,9 +1,9 @@
 ---
-title: "Hardening Linux with Wazuh: A Practical Walkthrough of Configuration Assessment"   
-date: 2025-11-26  
-categories: [wazuh]  
-tags: [wazuh, configuration assessment, popos, linux, vulnerability]  
-excerpt: "Comprehensive Linux configuration assessment using Wazuh, with actionable hardening steps, auditd rules, and security validation."  
+title: "Detecting Linux Persistence via File Integrity Monitoring (Wazuh Lab)"   
+date: 2026-03-20
+categories: [security, linux, detection]
+tags: [wazuh, fim, linux, persistence, detection]
+excerpt: "A hands-on lab exploring how Linux persistence techniques can be detected through file integrity monitoring and system state changes."  
 ---
 
 A hands-on lab demonstrating how Wazuh detects unauthorized changes to critical Linux system and user files.
