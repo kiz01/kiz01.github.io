@@ -6,40 +6,37 @@ order: 1
 
 ## About Me
 
-I'm a cybersecurity analyst with hands-on experience in alert triage, OSINT-driven investigations, and working with AI-generated threat alerts. I focus on building practical, real-world skills across security operations, cloud security, and malware analysis.
+I’m a Cloud Engineer with a strong focus on threat detection, system visibility, and practical security engineering.
 
-I like understanding things deeply, documenting what I learn, and building small labs that reflect how security actually works in practice.
+My work centers on understanding how attacks affect Linux systems and building detection logic using tools like Wazuh. I approach learning through hands-on labs, real configurations, and controlled attack simulations not just theory.
+
+This site documents my work: detection use cases, lab experiments, and system-level security analysis.
 
 ---
 
 ## What I Work On
 
-### **Security Operations**
-- Triage and validation of threat alerts (critical → low)
-- OSINT-based verification and enrichment
-- Understanding attacker behavior and patterns across surface + dark web sources
-- Hands-on learning with modern SOC tools and detection workflows
+### **Cloud Engineering**
+- Building hands-on experience with AWS (IAM, EC2, S3, VPC)
+- Understanding cloud architecture, networking, and security fundamentals
+- Setting up practical labs to simulate real-world configurations
 
-### **Cloud Security**
-- Currently building a cloud engineering foundation: AWS + Red Hat Linux  
-- Working through IAM, EC2, S3, VPC, networking, and security configs  
-- Studying Wiz-style cloud security practices and setting up a learning lab
+### **Detection Engineering (Wazuh)**
+- Built and maintain a local Wazuh lab
+- File Integrity Monitoring, log collection, and vulnerability detection
+- Exploring detection logic, alert correlation, and system visibility
 
-### **Wazuh & Detection Engineering**
-- Built a dedicated Wazuh lab on my local system  
-- Configured:  
-  - Log collection  
-  - File Integrity Monitoring  
-  - Vulnerability Detection  
-  - Rootcheck & system hardening  
-- Exploring alert correlation, dashboards, and detection logic  
-- Documenting everything as I go
+### **Linux Security**
+- System-level monitoring and configuration assessment
+- Understanding persistence techniques and defensive controls
 
 ### **Malware Analysis**
-- Following a structured workflow while taking a full practical malware analysis course  
-- Using FLARE VM and REMnux for static/dynamic analysis  
-- Breaking down samples, tracking indicators, and learning reverse engineering fundamentals  
-- Writing detailed notes to reinforce concepts
+- Static and dynamic analysis using FLARE VM and REMnux
+- Following structured workflows and documenting findings
+
+### **Security Operations (Foundation)**
+- Experience with alert triage and OSINT-based investigation
+- Understanding attacker behavior and threat patterns
 
 ---
 
