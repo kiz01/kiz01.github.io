@@ -175,7 +175,37 @@ The deployment was validated by performing DNS lookups through the Pi-hole insta
 
 # Challenges & Troubleshooting
 
-> *Coming Soon*
+Deploying a cloud-hosted DNS filtering service required coordinating multiple components across Oracle Cloud Infrastructure, Ubuntu Linux, Docker, Pi-hole, and Tailscale. While the individual technologies were straightforward to configure, integrating them introduced several challenges that required systematic troubleshooting.
+
+## Port 53 Conflict
+
+The first obstacle occurred during the initial deployment of the Pi-hole container. Docker was unable to start the container because Ubuntu's `systemd-resolved` service was already bound to port 53, preventing Pi-hole from exposing its DNS service.
+
+The issue was diagnosed by inspecting active network sockets and verifying the system resolver configuration. After reconfiguring the host DNS resolver, Pi-hole was able to bind successfully to port 53.
+
+---
+
+## DNS Resolution Inside the Container
+
+Although the container started successfully, Pi-hole initially failed to update its Gravity database because it could not resolve external domain names.
+
+Investigation revealed that the container was using Oracle Cloud's metadata DNS resolver through the inherited resolver configuration. After correcting the upstream DNS configuration, Gravity updates completed successfully and DNS forwarding operated normally.
+
+---
+
+## Multi-Layer Network Configuration
+
+The deployment required consistent configuration across Oracle Cloud networking, Ubuntu firewall rules, Docker networking, and the private Tailscale mesh network.
+
+Validating each networking layer independently ensured that trusted devices could securely reach the Pi-hole server while keeping the DNS service inaccessible from the public Internet.
+
+---
+
+## End-to-End Validation
+
+Following deployment, DNS lookups were performed through the Pi-hole instance to verify that requests were processed correctly and forwarded to the configured upstream recursive DNS servers.
+
+Successful query resolution confirmed that the complete DNS filtering pipeline was functioning as intended.
 
 ---
 
