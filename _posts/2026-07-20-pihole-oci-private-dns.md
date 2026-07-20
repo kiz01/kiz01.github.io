@@ -213,14 +213,41 @@ DNS lookup tests confirmed that client requests successfully reached the Pi-hole
 
 Completing this validation provided confidence that the deployment was operating reliably under normal conditions and that each infrastructure component had been configured correctly.
 
-> **Key Takeaway:**  
+> **Lessions from Troubleshooting:**  
 > Resolving these challenges strengthened the reliability and maintainability of the deployment while providing practical experience in Linux administration, Docker networking, DNS infrastructure, and Oracle Cloud networking. More importantly, the project reinforced the value of systematic troubleshooting, root cause analysis, and validating each infrastructure layer independently before assuming application-level faults. The experience also highlighted that successful cloud deployments depend not only on correct configuration but on understanding how operating systems, containers, networking, and cloud services interact as a complete system.
 
 ---
 
-# Security Considerations
+## Security Considerations
 
-> *Coming Soon*
+Security was a primary design objective throughout the deployment. Rather than exposing the DNS service directly to the public Internet, multiple security controls were implemented across the cloud infrastructure, operating system, and application layers to reduce the overall attack surface.
+
+### Private Network Access
+
+The Pi-hole server was integrated with a private Tailscale mesh network, allowing trusted devices to securely access the DNS service without requiring inbound Internet exposure. This approach eliminated the need to publish DNS services publicly while enabling secure remote access from any authorized device.
+
+### Secure Remote Administration
+
+Administrative access to the Oracle Cloud virtual machine was restricted to SSH key-based authentication. Password-based login was avoided, reducing the risk of unauthorized access through credential guessing or brute-force attacks.
+
+### Network Segmentation and Firewall Rules
+
+Network access was controlled through multiple layers of security. Oracle Cloud Infrastructure Security Lists and Ubuntu's Uncomplicated Firewall (UFW) were configured to permit only the services required for administration and DNS functionality. Restricting unnecessary inbound traffic helped minimize the attack surface of the virtual machine.
+
+### Container Isolation
+
+Pi-hole was deployed as a Docker container, providing logical separation between the application and the underlying operating system. This approach simplified application updates, reduced configuration drift, and limited the impact of application-level issues on the host environment.
+
+### DNS Privacy
+
+Cloudflare's public DNS resolvers were configured as upstream recursive DNS servers to provide reliable external name resolution. Using encrypted upstream communication and a reputable DNS provider improved privacy while maintaining low-latency query performance.
+
+### Persistent Data Management
+
+Pi-hole configuration files and DNS blocklists were stored using Docker volumes rather than within the container itself. Separating persistent data from the application container simplified upgrades, reduced the risk of configuration loss, and improved recoverability in the event of container replacement.
+
+> **Security Summary:**  
+> The deployment follows a layered security approach by combining private network access, secure authentication, firewall enforcement, container isolation, and persistent configuration management. These measures reduce unnecessary exposure while maintaining a manageable and resilient self-hosted DNS infrastructure.
 
 ---
 
