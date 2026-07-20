@@ -119,22 +119,28 @@ Cloudflare --> Internet
 
 # Design Decisions
 
-Rather than selecting technologies solely based on popularity, each component was chosen to satisfy a specific functional or security requirement. The objective was to build a cost-effective, maintainable, and secure DNS infrastructure while relying exclusively on open-source software and Oracle Cloud's Always Free resources.
+The infrastructure was designed with four primary objectives in mind:
 
-| Technology | Purpose | Why it was Chosen |
-|------------|---------|-------------------|
-| **Oracle Cloud Infrastructure (OCI)** | Cloud Hosting | Provides an Always Free ARM-based virtual machine capable of running 24×7 without additional infrastructure costs. |
-| **Ubuntu Server 24.04 LTS** | Operating System | Long-Term Support release offering stability, security updates, and excellent compatibility with Docker. |
-| **Docker** | Container Runtime | Isolates Pi-hole from the host operating system, simplifies deployment, and enables portability. |
-| **Docker Compose** | Service Orchestration | Allows the entire deployment to be managed through a single declarative configuration file, making recreation and maintenance straightforward. |
-| **Pi-hole** | DNS Filtering | Performs network-wide advertisement, tracker, and malicious domain blocking before DNS requests reach upstream resolvers. |
-| **Tailscale** | Private Networking | Creates an encrypted WireGuard-based mesh VPN, allowing secure access without exposing services to the public Internet. |
-| **Cloudflare DNS** | Upstream Resolver | Provides reliable, low-latency recursive DNS resolution for requests that are not blocked by Pi-hole. |
-| **UFW (Uncomplicated Firewall)** | Host Firewall | Restricts inbound traffic to only the required services, providing an additional layer of host-level security. |
-| **SSH Key Authentication** | Remote Administration | Eliminates password-based logins, reducing the risk of brute-force attacks against the server. |
+- **Security** – Administrative access should never be publicly exposed.
+- **Maintainability** – Services should be easy to deploy, update, and recover.
+- **Cost Efficiency** – The entire solution should operate within Oracle Cloud's Always Free resources.
+- **Portability** – The deployment should be reproducible on any compatible Linux host.
 
-The combination of these technologies results in a lightweight infrastructure that is secure by default, easy to reproduce, and suitable for both learning and long-term personal use.
+The following technologies were selected to achieve these objectives:
 
+| Technology | Purpose | Design Rationale |
+|------------|---------|------------------|
+| **Oracle Cloud Infrastructure (OCI)** | Cloud Hosting | Provides an Always Free ARM-based virtual machine capable of hosting long-running services without recurring infrastructure costs. |
+| **Ubuntu Server 24.04 LTS** | Operating System | A stable Long-Term Support release with strong community support and excellent compatibility with containerized workloads. |
+| **Docker** | Container Runtime | Isolates Pi-hole from the host operating system, simplifying deployment, upgrades, and recovery. |
+| **Docker Compose** | Service Orchestration | Enables infrastructure to be defined declaratively, making deployments repeatable and easier to maintain. |
+| **Pi-hole** | DNS Filtering | Filters advertisements, trackers, and known malicious domains before forwarding legitimate DNS queries upstream. |
+| **Tailscale** | Private Networking | Establishes an encrypted WireGuard-based mesh network, allowing secure access without exposing DNS or administrative interfaces to the public Internet. |
+| **Cloudflare DNS** | Upstream Resolver | Provides reliable, low-latency recursive DNS resolution for permitted requests. |
+| **UFW** | Host Firewall | Restricts inbound traffic to only the required services, reducing the server's exposed attack surface. |
+| **SSH Key Authentication** | Remote Administration | Eliminates password-based authentication, mitigating brute-force login attempts. |
+
+These design choices resulted in a lightweight, secure, and maintainable infrastructure that can be reproduced with minimal manual configuration.
 ---
 
 # Deployment
