@@ -167,7 +167,7 @@ Once deployed, DNS queries from connected devices were securely routed through T
 The deployment required coordinated configuration across multiple layers, including Oracle Cloud networking, Ubuntu firewall rules, Docker networking, and DNS services, ensuring reliable communication while maintaining a minimal attack surface.
 
 The deployment was validated by performing DNS lookups through the Pi-hole instance, confirming successful request processing and forwarding to the configured upstream resolver.
-![DNS Validation](/assets/img/posts/pihole/04_dns_validation.png)
+![DNS Validation](/assets/img/posts/pihole/04_service_status.png)
 
 *Figure 4: Successful DNS resolution through the Pi-hole server confirms correct end-to-end functionality.*
 
