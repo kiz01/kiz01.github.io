@@ -75,18 +75,6 @@ Rather than exposing the DNS server directly to the Internet, all administrative
 
 ---
 
-# Motivation
-
-> *Coming Soon*
-
----
-
-# Lab Environment
-
-> *Coming Soon*
-
----
-
 # Solution Architecture
 
 > *Coming Soon*
