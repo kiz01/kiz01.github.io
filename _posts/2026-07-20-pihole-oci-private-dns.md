@@ -173,39 +173,48 @@ The deployment was validated by performing DNS lookups through the Pi-hole insta
 
 ---
 
-# Challenges & Troubleshooting
+## Challenges & Troubleshooting
 
-Deploying a cloud-hosted DNS filtering service required coordinating multiple components across Oracle Cloud Infrastructure, Ubuntu Linux, Docker, Pi-hole, and Tailscale. While the individual technologies were straightforward to configure, integrating them introduced several challenges that required systematic troubleshooting.
+Deploying a cloud-hosted DNS filtering service required integrating Oracle Cloud Infrastructure (OCI), Ubuntu Linux, Docker, Pi-hole, and Tailscale into a cohesive and secure solution. While each technology was relatively straightforward to configure independently, their interaction introduced several challenges that required careful investigation before the deployment became fully operational.
 
-## Port 53 Conflict
+Rather than applying configuration changes indiscriminately, each issue was investigated by validating one infrastructure layer at a time—starting with the Linux host, followed by Docker networking, container configuration, cloud networking, and finally end-to-end DNS functionality. This systematic approach helped isolate root causes efficiently while minimizing unnecessary changes to the environment.
 
-The first obstacle occurred during the initial deployment of the Pi-hole container. Docker was unable to start the container because Ubuntu's `systemd-resolved` service was already bound to port 53, preventing Pi-hole from exposing its DNS service.
+### Port 53 Conflict
 
-The issue was diagnosed by inspecting active network sockets and verifying the system resolver configuration. After reconfiguring the host DNS resolver, Pi-hole was able to bind successfully to port 53.
+The first challenge occurred during the initial deployment of the Pi-hole container. Docker was unable to start the container because Ubuntu's `systemd-resolved` service was already bound to port **53**, preventing Pi-hole from exposing its DNS service.
 
----
+The issue was diagnosed by inspecting active network sockets and reviewing the host's DNS resolver configuration. Once the source of the conflict was identified, the resolver configuration was adjusted to allow Pi-hole exclusive access to the DNS port while preserving normal name resolution for the operating system.
 
-## DNS Resolution Inside the Container
+This issue highlighted the importance of understanding how Linux system services interact with containerized applications, particularly when multiple services require access to the same network port.
 
-Although the container started successfully, Pi-hole initially failed to update its Gravity database because it could not resolve external domain names.
+### DNS Resolution Inside the Container
 
-Investigation revealed that the container was using Oracle Cloud's metadata DNS resolver through the inherited resolver configuration. After correcting the upstream DNS configuration, Gravity updates completed successfully and DNS forwarding operated normally.
+After resolving the port conflict, the Pi-hole container started successfully but was initially unable to resolve external domain names. As a result, Gravity updates failed and DNS queries could not be forwarded to upstream recursive resolvers.
 
----
+Investigation of the container's resolver configuration revealed that it was inheriting Oracle Cloud Infrastructure's metadata DNS resolver through the host configuration. While suitable for the virtual machine itself, this configuration prevented Pi-hole from communicating correctly with its configured upstream DNS servers.
 
-## Multi-Layer Network Configuration
+After correcting the upstream DNS configuration, Gravity updates completed successfully and external DNS resolution began functioning as expected.
 
-The deployment required consistent configuration across Oracle Cloud networking, Ubuntu firewall rules, Docker networking, and the private Tailscale mesh network.
+This troubleshooting process demonstrated that reliable container networking depends not only on Docker configuration but also on the underlying operating system and cloud networking environment.
 
-Validating each networking layer independently ensured that trusted devices could securely reach the Pi-hole server while keeping the DNS service inaccessible from the public Internet.
+### Multi-Layer Network Configuration
 
----
+Because the solution was hosted in Oracle Cloud Infrastructure and accessed through Tailscale, reliable communication depended on multiple networking layers working together correctly. Oracle Cloud security rules, Ubuntu firewall policies, Docker networking, and the private Tailscale mesh all required consistent configuration.
 
-## End-to-End Validation
+Each layer was validated independently to ensure DNS traffic could traverse the environment securely without exposing unnecessary services to the public Internet. Reviewing firewall policies and network paths helped confirm that trusted devices could access the Pi-hole instance while maintaining a minimal attack surface.
 
-Following deployment, DNS lookups were performed through the Pi-hole instance to verify that requests were processed correctly and forwarded to the configured upstream recursive DNS servers.
+This reinforced the importance of validating infrastructure components individually rather than assuming connectivity issues originate from the application itself.
 
-Successful query resolution confirmed that the complete DNS filtering pipeline was functioning as intended.
+### End-to-End DNS Validation
+
+After resolving the deployment and networking issues, the final step was to verify that DNS requests were actually being processed by Pi-hole instead of bypassing the filtering service.
+
+DNS lookup tests confirmed that client requests successfully reached the Pi-hole instance, were evaluated against its filtering rules, and were forwarded to the configured upstream recursive DNS servers. Successful query resolution validated that the complete DNS filtering pipeline—from client request to upstream resolution—was functioning as designed.
+
+Completing this validation provided confidence that the deployment was operating reliably under normal conditions and that each infrastructure component had been configured correctly.
+
+> **Key Takeaway:**  
+> Resolving these challenges strengthened the reliability and maintainability of the deployment while providing practical experience in Linux administration, Docker networking, DNS infrastructure, and Oracle Cloud networking. More importantly, the project reinforced the value of systematic troubleshooting, root cause analysis, and validating each infrastructure layer independently before assuming application-level faults. The experience also highlighted that successful cloud deployments depend not only on correct configuration but on understanding how operating systems, containers, networking, and cloud services interact as a complete system.
 
 ---
 
