@@ -117,9 +117,23 @@ Cloudflare --> Internet
 
 ---
 
-# Technology Selection
+# Design Decisions
 
-> *Coming Soon*
+Rather than selecting technologies solely based on popularity, each component was chosen to satisfy a specific functional or security requirement. The objective was to build a cost-effective, maintainable, and secure DNS infrastructure while relying exclusively on open-source software and Oracle Cloud's Always Free resources.
+
+| Technology | Purpose | Why it was Chosen |
+|------------|---------|-------------------|
+| **Oracle Cloud Infrastructure (OCI)** | Cloud Hosting | Provides an Always Free ARM-based virtual machine capable of running 24×7 without additional infrastructure costs. |
+| **Ubuntu Server 24.04 LTS** | Operating System | Long-Term Support release offering stability, security updates, and excellent compatibility with Docker. |
+| **Docker** | Container Runtime | Isolates Pi-hole from the host operating system, simplifies deployment, and enables portability. |
+| **Docker Compose** | Service Orchestration | Allows the entire deployment to be managed through a single declarative configuration file, making recreation and maintenance straightforward. |
+| **Pi-hole** | DNS Filtering | Performs network-wide advertisement, tracker, and malicious domain blocking before DNS requests reach upstream resolvers. |
+| **Tailscale** | Private Networking | Creates an encrypted WireGuard-based mesh VPN, allowing secure access without exposing services to the public Internet. |
+| **Cloudflare DNS** | Upstream Resolver | Provides reliable, low-latency recursive DNS resolution for requests that are not blocked by Pi-hole. |
+| **UFW (Uncomplicated Firewall)** | Host Firewall | Restricts inbound traffic to only the required services, providing an additional layer of host-level security. |
+| **SSH Key Authentication** | Remote Administration | Eliminates password-based logins, reducing the risk of brute-force attacks against the server. |
+
+The combination of these technologies results in a lightweight infrastructure that is secure by default, easy to reproduce, and suitable for both learning and long-term personal use.
 
 ---
 
