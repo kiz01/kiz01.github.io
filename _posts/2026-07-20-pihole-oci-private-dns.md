@@ -1,21 +1,94 @@
 ---
-title: Building a Secure Private DNS Infrastructure with Pi-hole, Docker & Tailscale on Oracle Cloud
+title: Secure Private DNS Infrastructure with Pi-hole, Docker & Tailscale on Oracle Cloud
+description: Designing and deploying a secure cloud-hosted DNS filtering infrastructure using Oracle Cloud Infrastructure, Docker, Pi-hole, and Tailscale.
 date: 2026-07-20 18:00:00 +0530
 
-categories:
-  - Self Hosting
-  - Cloud
-
+categories: [Cloud, Self-Hosting]
 tags:
-  - Docker
   - OCI
+  - Oracle Cloud
+  - Ubuntu
+  - Docker
+  - Docker Compose
   - Pi-hole
   - Tailscale
-  - DNS
-  - Ubuntu
   - Linux
+  - DNS
   - Cybersecurity
 
 image:
-  path: /assets/img/projects/pihole/banner.png
+  path: /assets/img/posts/pihole/banner.png
+
+toc: true
+comments: true
 ---
+
+# Executive Summary
+
+> *Coming Soon*
+
+---
+
+# Motivation
+
+> *Coming Soon*
+
+---
+
+# Lab Environment
+
+> *Coming Soon*
+
+---
+
+# Solution Architecture
+
+> *Coming Soon*
+
+---
+
+# Technology Selection
+
+> *Coming Soon*
+
+---
+
+# Deployment
+
+> *Coming Soon*
+
+---
+
+# Challenges & Troubleshooting
+
+> *Coming Soon*
+
+---
+
+# Security Considerations
+
+> *Coming Soon*
+
+---
+
+# Validation & Testing
+
+> *Coming Soon*
+
+---
+
+# Lessons Learned
+
+> *Coming Soon*
+
+---
+
+# Future Enhancements
+
+> *Coming Soon*
+
+---
+
+# Conclusion
+
+> *Coming Soon*
