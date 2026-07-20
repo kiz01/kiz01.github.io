@@ -146,24 +146,30 @@ These design choices resulted in a lightweight, secure, and maintainable infrast
 # Deployment Overview
 
 The solution was deployed on an Oracle Cloud Infrastructure (OCI) Always Free virtual machine running Ubuntu Server 24.04 LTS. The objective was to create a cloud-hosted DNS filtering service that remained accessible only through a private Tailscale network.
+![Oracle Cloud Compute Instance](/assets/img/posts/pihole/01_pihole-server.png)
+
+*Figure 1: Oracle Cloud Infrastructure Always Free virtual machine hosting the Pi-hole service.*
 
 After provisioning the virtual machine, Docker Engine and Docker Compose were installed to provide a consistent and isolated runtime environment for Pi-hole. Running Pi-hole inside a container simplified deployment, configuration management, and future upgrades while keeping the host operating system independent of the application.
 
 Persistent Docker volumes were configured to retain Pi-hole's settings, blocklists, and query history across container restarts and image updates.
+![Running Pi-hole Container](/assets/img/posts/pihole/02_docker_ps.png)
+
+*Figure 2: Pi-hole running as a healthy Docker container with the required DNS and web management ports exposed.*
 
 Administrative access to the server was restricted to SSH key-based authentication, while Tailscale established an encrypted WireGuard-based mesh network between trusted client devices and the cloud-hosted DNS server. This approach eliminated the need to expose the DNS service or the Pi-hole administrative dashboard directly to the public Internet.
 
 Once deployed, DNS queries from connected devices were securely routed through Tailscale to the Pi-hole instance. Pi-hole evaluated each request against its configured blocklists before forwarding permitted queries to Cloudflare's public recursive DNS servers.
+![Pi-hole Dashboard](/assets/img/posts/pihole/03_pihole_dashboard.png)
+
+*Figure 3: Pi-hole administrative dashboard displaying DNS query statistics, blocked requests, upstream DNS activity, and overall service health.*
 
 The deployment required coordinated configuration across multiple layers, including Oracle Cloud networking, Ubuntu firewall rules, Docker networking, and DNS services, ensuring reliable communication while maintaining a minimal attack surface.
 
-> **Figures included in this section:**
->
-> - OCI Compute Instance
-> - Ubuntu Server Configuration
-> - Docker Installation Verification
-> - Running Pi-hole Container (`docker ps`)
-> - Pi-hole Administrative Dashboard
+The deployment was validated by performing DNS lookups through the Pi-hole instance, confirming successful request processing and forwarding to the configured upstream resolver.
+![DNS Validation](/assets/img/posts/pihole/04_dns_validation.png)
+
+*Figure 4: Successful DNS resolution through the Pi-hole server confirms correct end-to-end functionality.*
 
 ---
 
