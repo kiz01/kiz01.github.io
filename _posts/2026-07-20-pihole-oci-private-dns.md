@@ -77,7 +77,43 @@ Rather than exposing the DNS server directly to the Internet, all administrative
 
 # Solution Architecture
 
-> *Coming Soon*
+The infrastructure is designed around a simple principle: **provide secure, private DNS filtering without exposing management interfaces to the public Internet.**
+
+Rather than deploying Pi-hole on a local Raspberry Pi, the service is hosted on an Oracle Cloud Infrastructure (OCI) Always Free virtual machine. Docker is used to isolate the DNS service from the host operating system, while Tailscale provides secure WireGuard-based connectivity between trusted client devices and the cloud-hosted DNS server.
+
+Only authenticated devices that belong to the private Tailnet can reach the Pi-hole DNS service or its administrative dashboard.
+
+```mermaid
+flowchart TB
+
+Internet((Internet))
+
+Cloudflare["Cloudflare DNS"]
+
+OCI["Oracle Cloud VM<br/>Ubuntu Server 24.04"]
+
+Docker["Docker Engine"]
+
+PiHole["Pi-hole Container"]
+
+Tail["Tailscale"]
+
+Laptop["Laptop"]
+
+Phone["Android"]
+
+Tablet["Tablet"]
+
+Laptop --> Tail
+Phone --> Tail
+Tablet --> Tail
+
+Tail --> OCI
+OCI --> Docker
+Docker --> PiHole
+PiHole --> Cloudflare
+Cloudflare --> Internet
+```
 
 ---
 
