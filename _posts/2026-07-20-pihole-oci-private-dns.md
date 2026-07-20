@@ -16,8 +16,7 @@ tags:
   - DNS
   - Cybersecurity
 
-image:
-  path: /assets/img/posts/pihole/banner.png
+
 
 toc: true
 comments: true
