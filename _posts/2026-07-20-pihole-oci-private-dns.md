@@ -295,16 +295,46 @@ The completed validation process confirmed that:
 
 # Lessons Learned
 
-> *Coming Soon*
+This project provided valuable hands-on experience in designing, deploying, and troubleshooting a production-like self-hosted DNS infrastructure within a cloud environment. Beyond simply deploying Pi-hole, the project reinforced the importance of understanding how cloud networking, Linux services, containerization, and DNS infrastructure interact as an integrated system.
+
+Working through deployment challenges highlighted the value of systematic troubleshooting and root cause analysis rather than relying on trial-and-error configuration changes. Investigating issues one infrastructure layer at a time significantly reduced troubleshooting complexity and improved confidence in the final deployment.
+
+The project also strengthened practical experience with:
+
+- Oracle Cloud Infrastructure networking and security configuration.
+- Linux system administration and service management.
+- Docker container deployment and persistent storage management.
+- DNS architecture and recursive query processing.
+- Secure private networking using Tailscale.
+- Infrastructure validation and operational testing.
+
+Most importantly, the deployment demonstrated that building reliable infrastructure requires more than installing software—it requires understanding how individual components interact to deliver a secure, maintainable, and resilient solution.
 
 ---
 
 # Future Enhancements
 
-> *Coming Soon*
+Although the current deployment successfully provides secure private DNS filtering, several improvements could further enhance its functionality, scalability, and resilience.
+
+Potential future enhancements include:
+
+- Implementing automated backups for Pi-hole configuration and Gravity databases.
+- Integrating monitoring and alerting using Prometheus and Grafana.
+- Deploying redundant Pi-hole instances to improve availability.
+- Automating infrastructure provisioning using Infrastructure as Code (Terraform).
+- Configuring HTTPS with a reverse proxy for secure administrative access.
+- Expanding the environment to support additional self-hosted network services.
+
+These enhancements would further improve operational resilience while reducing manual administration as the infrastructure grows.
 
 ---
 
 # Conclusion
 
-> *Coming Soon*
+This project successfully demonstrates the design and deployment of a secure, cloud-hosted private DNS infrastructure using Oracle Cloud Infrastructure, Ubuntu Server, Docker, Pi-hole, and Tailscale.
+
+The resulting solution provides centralized DNS filtering, secure remote access through a private mesh network, and a lightweight deployment model that is both cost-effective and easy to maintain. Throughout the implementation, practical challenges involving Linux services, container networking, DNS resolution, and cloud networking were systematically investigated and resolved, resulting in a stable and reliable deployment.
+
+Beyond achieving the project's functional objectives, this deployment provided practical experience across cloud infrastructure, Linux administration, containerization, networking, and infrastructure security. The knowledge gained throughout the design, troubleshooting, and validation phases significantly strengthened my understanding of how modern infrastructure components operate together in real-world environments.
+
+Overall, this project highlights not only the successful implementation of a self-hosted DNS solution but also the engineering practices required to design, troubleshoot, secure, and validate cloud-native infrastructure.
