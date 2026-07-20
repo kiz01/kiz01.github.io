@@ -173,7 +173,7 @@ The deployment was validated by performing DNS lookups through the Pi-hole insta
 
 ---
 
-## Challenges & Troubleshooting
+# Challenges & Troubleshooting
 
 Deploying a cloud-hosted DNS filtering service required integrating Oracle Cloud Infrastructure (OCI), Ubuntu Linux, Docker, Pi-hole, and Tailscale into a cohesive and secure solution. While each technology was relatively straightforward to configure independently, their interaction introduced several challenges that required careful investigation before the deployment became fully operational.
 
@@ -218,7 +218,7 @@ Completing this validation provided confidence that the deployment was operating
 
 ---
 
-## Security Considerations
+# Security Considerations
 
 Security was a primary design objective throughout the deployment. Rather than exposing the DNS service directly to the public Internet, multiple security controls were implemented across the cloud infrastructure, operating system, and application layers to reduce the overall attack surface.
 
@@ -253,7 +253,43 @@ Pi-hole configuration files and DNS blocklists were stored using Docker volumes 
 
 # Validation & Testing
 
-> *Coming Soon*
+Following deployment, a series of validation tests were performed to verify that each infrastructure component was functioning correctly and that DNS traffic flowed through the intended path.
+
+### Container Health Verification
+
+The Docker container was inspected to confirm that Pi-hole was running successfully and reporting a healthy operational status. This verified that the application, embedded DNS server, and web administration interface were initialized correctly.
+
+### DNS Resolution Testing
+
+DNS queries were executed directly against the local Pi-hole instance to verify that requests were successfully processed and forwarded to the configured upstream recursive DNS servers.
+
+![DNS Validation](/assets/img/posts/pihole/04_dns_validation.png)
+
+*Figure 4: Successful DNS resolution through the Pi-hole server confirms correct end-to-end functionality.*
+
+Successful responses confirmed that client requests traversed the complete DNS filtering pipeline without errors.
+
+### Pi-hole Dashboard Verification
+
+The Pi-hole administrative dashboard was monitored to verify that DNS queries were being received, processed, and logged correctly. Query statistics, blocked requests, upstream resolver activity, and system health metrics confirmed that the service was operating as expected.
+
+### Remote Connectivity Validation
+
+Connectivity was verified from trusted devices connected through the private Tailscale mesh network. This confirmed that authorized devices could securely use the Pi-hole instance for DNS resolution without exposing the service directly to the public Internet.
+
+### Infrastructure Validation Summary
+
+The completed validation process confirmed that:
+
+- Docker services were operating normally.
+- Pi-hole successfully processed DNS requests.
+- Gravity blocklists updated successfully.
+- Upstream DNS resolution functioned correctly.
+- Private DNS access through Tailscale operated as expected.
+- Cloud networking and firewall policies permitted only the intended traffic.
+
+> **Validation Summary:**  
+> End-to-end testing confirmed that the deployed infrastructure operated reliably across compute, networking, containerization, and DNS services. The successful validation demonstrated that the environment met the project's functional and security objectives.
 
 ---
 
